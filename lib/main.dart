@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'calculator.dart';
+import 'input.dart';
+import 'operation_button.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
+  runApp(
+     MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -39,109 +44,62 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Card(
-                    color: Colors.grey,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      onChanged: (newValue){
-                        setState(() {
-                          num1 = int.parse(newValue);
-                        });
-
-                      },
-                      cursorColor: Colors.black,
-                      decoration: const InputDecoration(
-                          labelStyle: TextStyle(
-                      color: Colors.black,
-                    ),
-                          labelText: "Enter First Number",
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Card(
-                    color: Colors.grey,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      cursorColor: Colors.black,
-                     onChanged: (newValue){
-                        setState(() {
-                          num2 = int.parse(newValue);
-                        });
-                     },
-                      decoration: const InputDecoration(
-                        labelStyle: TextStyle(
-                          color: Colors.black
-                        ),
-                          labelText: "Enter Seccond Number",),
-                    ),
-                  ),
-                ),
+                Input(
+                    labelText: "Enter First number",
+                    onChange: (newValue){
+                      setState(() {
+                        num1 = int.parse(newValue);
+                      });
+                    },),
+                Input(
+                    labelText: "Enter second number",
+                    onChange: (newValue){
+                      setState(() {
+                        num2 = int.parse(newValue);
+                      });
+                    },),
                 const SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    MaterialButton(
-                      padding: EdgeInsets.only(left: 8, right: 8),
-                      color: Colors.grey,
-                        onPressed: (){
+                    OperationButton(
+                      operationIcon: "+",
+                      onPress: (){
                         setState(() {
-                          Calculator c = Calculator(num1.toDouble(), num2.toDouble());
-                          result = c.getSum();
-                        });
-                        },
-                        child: const Text(
-                          "+",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
-                    MaterialButton(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        color: Colors.grey,
-                      onPressed: (){
-                          setState(() {
-                            Calculator c = Calculator(num1.toDouble(), num2.toDouble());
-                            result = c.getSubtraction();
-                          });
+                        Calculator c = Calculator(num1.toDouble(), num2.toDouble());
+                        result = c.getSum();
+                      });
 
-                      },
-                        child: const Text(
-                          "-",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
-                    MaterialButton(
-                        padding:const EdgeInsets.only(left: 8, right: 8),
-                        color: Colors.grey,
-                        onPressed: (){
-                          setState(() {
-                            Calculator c = Calculator(num1.toDouble(), num2.toDouble());
-                            result = c.getMultiplication();
-                          });
+                    },),
+                    OperationButton(
+                      operationIcon: "-",
+                      onPress: (){
+                        setState(() {
+                        Calculator c = Calculator(num1.toDouble(), num2.toDouble());
+                        result = c.getSubtraction();
+                      });
 
-                        },
-                        child: const Text(
-                          "*",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
-                    MaterialButton(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
-                        color: Colors.grey,
-                        onPressed: (){
-                          setState(() {
-                            Calculator c = Calculator(num1.toDouble(), num2.toDouble());
-                            result = c.getDivision();
-                          });
+                    },),
+                    OperationButton(
+                      operationIcon: "*",
+                      onPress: (){
+                        setState(() {
+                        Calculator c = Calculator(num1.toDouble(), num2.toDouble());
+                        result = c.getMultiplication();
+                      });
 
-                        },
-                        child: Text(
-                          "/",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                        )),
+                    },),
+                    OperationButton(
+                      operationIcon: "/",
+                      onPress: (){
+                        setState(() {
+                        Calculator c = Calculator(num1.toDouble(), num2.toDouble());
+                        result = c.getDivision();
+                      });
+
+                    },),
                   ],
                 ),
                 Container(
@@ -150,7 +108,7 @@ class _MyAppState extends State<MyApp> {
                   color: Colors.white,
                   child: Center(
                     child: Text(result,
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
                 )
               ],
@@ -159,3 +117,7 @@ class _MyAppState extends State<MyApp> {
         ));
   }
 }
+
+
+
+
